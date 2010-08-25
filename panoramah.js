@@ -1,26 +1,32 @@
 var PanoramAh = {
-	init: function () {
-		// Get the element
-		el = $( ".panorama" );
+	// Shortcut function that takes a jQuery selector and panoramize's all of the matching elements
+	easy: function ( selector ) {
+		$( selector ).each( function ( i ) { PanoramAh.panoramize( $( this ) ); } );
+	},
+
+	// Take a single jQuery object and panoramizes it
+	panoramize: function ( el ) {
+		// Localize the element
+		var photo = el;
 		// Extract the relevant data from the rel attribute
-		panorama_width = el.attr( 'rel' ).split( ':' )[0];
-		panorama_url = el.attr( 'rel' ).split( ':' )[1];
+		var panorama_width = photo.attr( 'rel' ).split( ':' )[0];
+		var panorama_url = photo.attr( 'rel' ).split( ':' )[1];
 		// Get the preloader
-		img = el.find( '.preload' )
+		var img = $( "<img src='' />" );
 		// Setup the onload callback
 		img.load(
 			function () {
 				// Set the background to the image
-				el.css( 'background', "transparent url( '" + panorama_url + "' ) no-repeat" );
+				photo.css( 'background', "transparent url( '" + panorama_url + "' ) no-repeat" );
 				// Clear out the loading crap
-				el.html( "" );
+				photo.html( "" );
 				// Set up the mouse monitoring
-				el.mousemove(
+				photo.mousemove(
 					function ( event ) {
 						// Get the offset
-						offset = Math.floor( ( panorama_width - el.width() ) * ( ( event.pageX - el.offset().left ) / el.width() ) )
+						offset = Math.floor( ( panorama_width - photo.width() ) * ( ( event.pageX - photo.offset().left ) / photo.width() ) )
 						// Mind the overflows
-						if( offset <= panorama_width - el.width() ) { el.css( 'background-position',  '-' + offset + 'px 50%' ); }
+						if( offset <= panorama_width - photo.width() ) { photo.css( 'background-position',  '-' + offset + 'px 50%' ); }
 					}
 				);
 			}
