@@ -24,9 +24,12 @@
 				function ( index ) {
 					// Localize the element
 					var photo = $( this );
+					var panorama_details = photo.attr( 'rel' ).split( ':' );
 					// Extract the relevant data from the rel attribute
-					var panorama_width = photo.attr( 'rel' ).split( ':' )[0];
-					var panorama_url = photo.attr( 'rel' ).split( ':' )[1];
+					var panorama_width = panorama_details.shift();
+					// Patch together the rest of it (thanks Naina!)
+					var panorama_url = panorama_details.join( ':' );
+					console.log( panorama_url );
 					// Get the preloader
 					var img = $( "<img src='' />" );
 					// Setup the onload callback
