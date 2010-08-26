@@ -32,3 +32,7 @@ PanoramAh is a jQuery plugin that lets you present easy to scroll panorama image
         </div>
       </body>
     </html>
+
+# Demo
+
+Stunning Colorado Vista - <http://static.velvetcache.org/pages/2010/08/25/panoramah-version-two/>
