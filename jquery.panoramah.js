@@ -29,7 +29,7 @@
 					var panorama_width = panorama_details.shift();
 					// Patch together the rest of it (thanks Naina!)
 					var panorama_url = panorama_details.join( ':' );
-					console.log( panorama_url );
+					//console.log( panorama_url );
 					// Get the preloader
 					var img = $( "<img src='' />" );
 					// Setup the onload callback
