@@ -19,17 +19,24 @@
 // THE SOFTWARE.
 (
 	function ( $ ) {
-		$.fn.panoramah = function () {
+		$.fn.panoramah = function ( options ) {
+
+			var settings = {
+				'orientation'  : 'horizontal'
+			};
+
 			return this.each(
 				function ( index ) {
+				
+					if ( options ) { $.extend( settings, options ); }
+
 					// Localize the element
 					var photo = $( this );
 					var panorama_details = photo.attr( 'rel' ).split( ':' );
 					// Extract the relevant data from the rel attribute
-					var panorama_width = panorama_details.shift();
+					var panorama_size = panorama_details.shift();
 					// Patch together the rest of it (thanks Naina!)
 					var panorama_url = panorama_details.join( ':' );
-					//console.log( panorama_url );
 					// Get the preloader
 					var img = $( "<img src='' />" );
 					// Setup the onload callback
@@ -42,10 +49,18 @@
 							// Set up the mouse monitoring
 							photo.mousemove(
 								function ( event ) {
-									// Get the offset
-									offset = Math.floor( ( panorama_width - photo.width() ) * ( ( event.pageX - photo.offset().left ) / photo.width() ) )
-									// Mind the overflows
-									if( offset <= panorama_width - photo.width() ) { photo.css( 'background-position',  '-' + offset + 'px 50%' ); }
+									if( settings.orientation == 'vertical' ) {
+										// Get the offset
+										offset = Math.floor( ( panorama_size - photo.height() ) * ( ( event.pageY - photo.offset().top ) / photo.height() ) )
+										// Mind the overflows
+										if( offset <= panorama_size - photo.height() ) { photo.css( 'background-position',  '50% -' + offset + 'px' ); }
+									}
+									else {
+										// Get the offset
+										offset = Math.floor( ( panorama_size - photo.width() ) * ( ( event.pageX - photo.offset().left ) / photo.width() ) )
+										// Mind the overflows
+										if( offset <= panorama_size - photo.width() ) { photo.css( 'background-position',  '-' + offset + 'px 50%' ); }
+									}
 								}
 							);
 						}
