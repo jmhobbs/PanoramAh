@@ -6,10 +6,10 @@ PanoramAh is a jQuery plugin that lets you present easy to scroll panorama image
 
 1. Include jQuery
 2. Include PanoramAh
-3. Set up the div's with a rel tag equal to "[image-size]:[image-path]"
+3. Set up the div's with a two data tags: data-panorama-size and data-panorama-url (optional)
 4. Panoramize those div's
 
-PanoramAh also supports vertical panorama's, just pass the orientation option as 'vertical' and use the image height as the image size in the div.
+PanoramAh also supports vertical panorama's, just set data-panorama-orientation to 'vertical' or pass 'orientation':'vertical' to .panoramah()
 
 # Example
 
@@ -22,19 +22,22 @@ PanoramAh also supports vertical panorama's, just pass the orientation option as
           $(
             function () {
               $( '.panorama' ).panoramah();
-              $( '.panorama-vertical' ).panoramah( { 'orientation': 'vertical' } );
+              $( '.panorama-vertical' ).panoramah();
             }
           );
         </script>
       </head>
       <body>
         <div class="panorama"
-            rel="4201:Panorama-Cropped.sm.jpg"
+            data-panorama-size="4201"
+            data-panorama-url="Panorama-Cropped.sm.jpg"
             style="height: 500px; width: 100%; border: 1px solid #444;">
           Loading...
         </div>
 				<div class="panorama-vertical"
-            rel="4201:Panorama-Vertical.sm.jpg"
+            data-panorama-size="4201"
+            data-panorama-url="Panorama-Vertical.sm.jpg"
+            data-panorama-orientation="vertical"
             style="height: 500px; width: 500px; border: 1px solid #444;">
           Loading...
         </div>
